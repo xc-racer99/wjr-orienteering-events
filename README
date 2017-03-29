@@ -1,0 +1,5 @@
+[wjr-fullcalendar clubIds clubColors appendClubName]
+where
+	clubIds is a comma seperated list of WhyJustRun club IDs (optional, 0 for all clubs in the WJR database)
+	clubColors is a comma seperated listed of colors (hex or html color name formats), used in the same order as the clubIds (optional, pass none if you want them all to be the default color)
+	appendClubName is a boolean value determining if event names are pre-pended (optional)

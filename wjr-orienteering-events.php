@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WhyJustRun Orienteering Events
-Description: Basic plugin to create a FullCalendar and/or events list using the shortcodes [wjr-fullcalendar] and [wjr-eventslist]
+Description: Basic plugin to create a FullCalendar and using the shortcode [wjr-fullcalendar].
 Author: Jonathan Bakker
 Version: 1.0
 */
