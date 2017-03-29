@@ -16,11 +16,38 @@ function wjr_events_shortcodes_init()
 		// Add the div
 		$toreturn = '<div id="calendar"></div>';
 
-		// Add the clubIds to an array
-		$toreturn .= '<script>var clubIds = [';
-		for($i = 0; $i < count($atts); $i++)
-			$toreturn .= $atts[$i] . ',';
-		$toreturn .= '];</script>';
+		// Setup the clubIds, clubColors, appendClubName
+		$toreturn .= '<script>';
+
+		$numAtts = count($atts);
+
+		if ($numAtts >= 1) {
+			$toreturn .= 'var clubIds = [';
+			$clubIds = explode(",", $atts[0]);
+			for($i = 0; $i < count($clubIds); $i++)
+				$toreturn .= $clubIds[$i] . ',';
+			$toreturn .= '];';
+		} else {
+			$toreturn .= 'var clubIds = [0];';
+		}
+
+		if ($numAtts >= 2 && strncmp($atts[1], 'none', 4)) {
+			$toreturn .= 'var clubColors = [';
+			$colors = explode(",", $atts[1]);
+			for($i = 0; $i < count($colors); $i++)
+				$toreturn .= "'" . $colors[$i] . "',";
+			$toreturn .= '];';
+		} else {
+			$toreturn .= 'var clubColors = [];';
+		}
+
+		if ($numAtts >= 3) {
+			$toreturn .= 'var appendClubName = ' . $atts[2] . ';';
+		} else {
+			$toreturn .= 'var appendClubName = true;';
+		}
+
+		$toreturn .= '</script>';
 
 		return $toreturn;
 
