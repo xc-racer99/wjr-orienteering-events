@@ -2,7 +2,7 @@ function filterByClub(event) {
 	return clubIds.indexOf(event.club.id) != -1;
 }
 
-function convertTimestamps(events) {
+function convertTimestamps(events, timezone) {
 	// If the first (presumably only) clubId is 0, we want all events
 	if (clubIds[0] == 0) {
 		var wantedEvents = events;
@@ -10,11 +10,20 @@ function convertTimestamps(events) {
 		var wantedEvents = events.filter(filterByClub);
 	}
 
-	for (var i = 0; i < wantedEvents.length; i++) {
-		// Convert from UNIX timestamps to ISO strings
-		wantedEvents[i].start = moment.tz(wantedEvents[i].start * 1000, "America/Vancouver");
-		wantedEvents[i].end = moment.tz(wantedEvents[i].end * 1000, "America/Vancouver");
-	}
+	if (timezone == 'local') {
+		for (var i = 0; i < wantedEvents.length; i++) {
+			// Convert from UNIX timestamps to JS timestamps
+			wantedEvents[i].start = wantedEvents[i].start * 1000;
+			wantedEvents[i].end = wantedEvents[i].end * 1000;
+		}
+
+	} else {
+		for (var i = 0; i < wantedEvents.length; i++) {
+			// Convert from UNIX timestamps to ISO strings with the right timezone
+			wantedEvents[i].start = moment.tz(wantedEvents[i].start * 1000, timezone);
+			wantedEvents[i].end = moment.tz(wantedEvents[i].end * 1000, timezone);
+		}
+}
 
 
 	if (clubColors.length > 0) {
@@ -47,6 +56,8 @@ jQuery('#calendar').fullCalendar({
 
 	defaultView: view,
 
+	timezone: document.getElementById('timezone-selector').value,
+
 	eventSources: [
 		{
 			events: function(start, end, timezone, callback) {
@@ -60,11 +71,16 @@ jQuery('#calendar').fullCalendar({
 						end: end.unix()
 					},
 					success: function(events) {
-						callback(convertTimestamps(events));
+						callback(convertTimestamps(events, timezone));
 					}
 				});
 			}
 		},
 	]
 });
+
+	// when the timezone selector changes, dynamically change the calendar option
+	jQuery('#timezone-selector').on('change', function() {
+		jQuery('#calendar').fullCalendar('option', 'timezone', this.value || false);
+	});
 });

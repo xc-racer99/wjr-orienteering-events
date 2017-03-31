@@ -13,8 +13,25 @@ function wjr_events_shortcodes_init()
 		// Enqueue the script in the footer
 		wp_enqueue_script('wjr-fullcalendar', plugins_url('wjrFullCalendar.js', __FILE__), array('fullcalendar-base', 'moment.tz'), null, true);
 
+
+		// Add the timezone selector
+		$toreturn = "
+		<div id='tz-selector-container'>
+			Timezone:
+			<select id='timezone-selector'>
+				<option value='local' selected='selected'>Your Local Time</option>
+				<option value='America/Vancouver'>Pacific Time</option>
+				<option value='America/Edmonton'>Mountain Time</option>
+				<option value='America/Winnipeg'>Central Time</option>
+				<option value='America/Toronto'>Eastern Time</option>
+				<option value='America/Halifax'>Atlantic Time</option>
+				<option value='America/St_Johns'>Newfoundland Time</option>
+			</select>
+		</div>
+		";
+
 		// Add the div
-		$toreturn = '<div id="calendar"></div>';
+		$toreturn .= '<div id="calendar"></div>';
 
 		// Setup the clubIds, clubColors, appendClubName
 		$toreturn .= '<script>';
