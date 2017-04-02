@@ -63,7 +63,6 @@ function wjr_events_shortcodes_init()
 				<option value='America/St_Johns'>Newfoundland Time</option>
 			</select>
 		</div>
-		<div id='club-selector'></div>
 		";
 
 		return $toreturn;

@@ -154,13 +154,34 @@ function setupClubs(xml) {
 	/* Setup initial conditions */
 	setInitialChecked();
 }
-
+function fetchClubList() {
 /* Fetch the club list from WJR */
-var xmlhttp = new XMLHttpRequest();
-xmlhttp.onreadystatechange = function() {
-	if (this.readyState == 4 && this.status == 200) {
-		setupClubs(this);
-	}
-};
-xmlhttp.open("GET", "https://whyjustrun.ca/iof/3.0/organization_list.xml", true);
-xmlhttp.send();
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			setupClubs(this);
+		}
+	};
+	xmlhttp.open("GET", "https://whyjustrun.ca/iof/3.0/organization_list.xml", true);
+	xmlhttp.send();
+}
+
+function createSettingsView() {
+	var FC = jQuery.fullCalendar; // a reference to FullCalendar's root namespace
+	var SettingsView = FC.View.extend({ // make a subclass of View
+
+		renderSkeleton: function() {
+			// subclasses should implement
+			this.el.append('<div id="club-selector"></div>');
+			fetchClubList();
+		},
+
+		unrenderSkeleton: function() {
+			// subclasses should implement
+			jQuery("#club-selector").remove();
+		},
+
+	});
+
+	FC.views.settings = SettingsView; // register our class with the view system
+}

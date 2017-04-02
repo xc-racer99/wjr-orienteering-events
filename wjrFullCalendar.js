@@ -40,6 +40,9 @@ function convertTimestamps(events, timezone) {
 jQuery(document).ready(function() {
 	// page is now ready
 
+	/* Create and register our custom settings view */
+	createSettingsView();
+
 	/* Default to month view when at least 783px wide, otherwise list view */
 	var view = 'month';
 	if (jQuery( document ).width() < 783) {
@@ -51,7 +54,7 @@ jQuery('#calendar').fullCalendar({
 	header: {
 		left: 'prev,next today',
 		center: 'title',
-		right: 'month,listMonth'
+		right: 'month,listMonth,settings'
 	},
 
 	defaultView: view,
