@@ -11,7 +11,7 @@ function wjr_events_shortcodes_init()
 	function wjr_fullmaps_shortcode($atts = [], $content = null)
 	{
 		// Enqueue the script in the footer
-		wp_enqueue_script('wjr-fullcalendar', plugins_url('wjrFullCalendar.js', __FILE__), array('fullcalendar-base', 'moment.tz', 'club-selector'), null, true);
+		wp_enqueue_script('wjr-fullcalendar', plugins_url('wjrFullCalendar.js', __FILE__), array('fullcalendar-base', 'moment.tz', 'wjr-fullcalendar-settings'), null, true);
 
 		// Add the div
 		$toreturn .= '<div id="calendar"></div>';
@@ -62,7 +62,7 @@ function wjr_events_enqueue_resources()
 		// Moment.js files - moment.tz for timezone conversions
 		wp_register_script('moment', plugins_url('moment.min.js', __FILE__), null, true);
 		wp_register_script('moment.tz', plugins_url('moment-timezone-with-data-2010-2020.js', __FILE__), null, true);
-		wp_register_script('club-selector', plugins_url('clubParsing.js', __FILE__), null, true);
+		wp_register_script('wjr-fullcalendar-settings', plugins_url('settingsPage.js', __FILE__), null, true);
 
 		// FullCalendar Base
 		wp_register_script('fullcalendar-base', '//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.0/fullcalendar.min.js', array('moment', 'jquery'), true);
