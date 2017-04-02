@@ -27,9 +27,6 @@ function setChecked(ourClubNode, clubId) {
 			var childNode = document.getElementById("label" + childIds[i]);
 			childNode.checked = checked;
 
-			/* Update the array */
-			updateArray(childIds[i], checked);
-
 			/* Recurse into children */
 			setChecked(childNode, childIds[i]);
 		}
@@ -176,11 +173,11 @@ function createSettingsView() {
 
 		renderSkeleton: function() {
 			// subclasses should implement
+			/* Hide the title and left-right arrows */
 			jQuery(".fc-left").hide();
 			jQuery(".fc-center").hide();
 
-			/* Hide the title and left-right arrows */
-			this.el.append('<div id="club-selector"></div>');
+			this.el.append('<h3>Clubs</h3><div id="club-selector"></div>');
 			fetchClubList();
 		},
 
