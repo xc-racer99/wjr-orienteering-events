@@ -176,6 +176,10 @@ function createSettingsView() {
 
 		renderSkeleton: function() {
 			// subclasses should implement
+			jQuery(".fc-left").hide();
+			jQuery(".fc-center").hide();
+
+			/* Hide the title and left-right arrows */
 			this.el.append('<div id="club-selector"></div>');
 			fetchClubList();
 		},
@@ -183,6 +187,11 @@ function createSettingsView() {
 		unrenderSkeleton: function() {
 			// subclasses should implement
 			jQuery("#club-selector").remove();
+
+			/* Show title and arrows again */
+			jQuery(".fc-left").show();
+			jQuery(".fc-center").show();
+
 		},
 
 	});
