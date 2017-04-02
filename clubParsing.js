@@ -71,6 +71,7 @@ function setupInputs(allClubs, clubId, parentNode) {
 	/* Create an unordered list */
 	var unorderedList = document.createElement("UL");
 	var listItem = document.createElement("LI");
+	listItem.style.listStyleType = "none";
 
 	/* Create a label */
 	var label = document.createElement("LABEL");

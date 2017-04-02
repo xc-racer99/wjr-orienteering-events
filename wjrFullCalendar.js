@@ -52,7 +52,7 @@ jQuery(document).ready(function() {
 // initialize the calendar...
 jQuery('#calendar').fullCalendar({
 	header: {
-		left: 'prev,next today',
+		left: 'prev,next',
 		center: 'title',
 		right: 'month,listMonth,settings'
 	},
