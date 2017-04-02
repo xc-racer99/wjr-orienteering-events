@@ -1,5 +1,7 @@
-[wjr-fullcalendar clubIds clubColors appendClubName]
+Shortcode Usage
+[wjr-fullcalendar topClubId clubIds appendClubName eventColoring]
 where
-	clubIds is a comma seperated list of WhyJustRun club IDs (optional, 0 for all clubs in the WJR database)
-	clubColors is a comma seperated listed of colors (hex or html color name formats), used in the same order as the clubIds (optional, pass none if you want them all to be the default color)
-	appendClubName is a boolean value determining if event names are pre-pended (optional)
+	topClubId is the top club level ID to start with for the club selection page (optional, default 76 which is Orienteering Canada (OC))
+	clubIds is a comma seperated list of WhyJustRun club IDs (optional, 0 for all clubs in the WJR database, default 76 which is OC)
+	appendClubName is a boolean value determining if event names are pre-pended (optional, default true)
+	eventColoring is the method by which the events are colored (eventType for filtering based on Club/National, eventSeries for the color defined on WJR (optional, default eventType)
