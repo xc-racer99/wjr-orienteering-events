@@ -1,3 +1,6 @@
+/* List of colors to appear for the different event categories - International, National, Regional, Local, Club */
+var eventTypeColors = ["blue", "red", "orange", "yellow", "green"];
+
 function filterByClub(event) {
 	return clubIds.indexOf(event.club.id) != -1;
 }
@@ -16,7 +19,6 @@ function convertTimestamps(events, timezone) {
 			wantedEvents[i].start = wantedEvents[i].start * 1000;
 			wantedEvents[i].end = wantedEvents[i].end * 1000;
 		}
-
 	} else {
 		for (var i = 0; i < wantedEvents.length; i++) {
 			// Convert from UNIX timestamps to ISO strings with the right timezone
@@ -25,12 +27,12 @@ function convertTimestamps(events, timezone) {
 		}
 }
 
-
-	if (clubColors.length > 0) {
+	if (eventColoring == "eventType") {
 		for (var i = 0; i < wantedEvents.length; i++) {
 			// Set the text color to black
 			wantedEvents[i].textColor = 'black';
-			wantedEvents[i].color = clubColors[clubIds.indexOf(wantedEvents[i].club.id)];
+			// Subtract 1 to convert between WJR's IDs and our array indexes
+			wantedEvents[i].color = eventTypeColors[wantedEvents[i].event_classification.id - 1];
 		}
 	}
 

@@ -21,30 +21,30 @@ function wjr_events_shortcodes_init()
 
 		$numAtts = count($atts);
 
-		if ($numAtts >= 1) {
-			$toreturn .= 'var clubIds = [';
-			$clubIds = explode(",", $atts[0]);
-			for($i = 0; $i < count($clubIds); $i++)
-				$toreturn .= $clubIds[$i] . ',';
-			$toreturn .= '];';
+		if ($numAtts >= 1 && is_numeric($atts[0])) {
+			$toreturn .= 'var topId = [' . $atts[0] . '];';
 		} else {
-			$toreturn .= 'var clubIds = [0];';
+			/* Default to Orienteering Canada */
+			$toreturn .= 'var topId = 76;';
 		}
 
-		if ($numAtts >= 2 && strncmp($atts[1], 'none', 4)) {
-			$toreturn .= 'var clubColors = [';
-			$colors = explode(",", $atts[1]);
-			for($i = 0; $i < count($colors); $i++)
-				$toreturn .= "'" . $colors[$i] . "',";
-			$toreturn .= '];';
+		if ($numAtts >= 2) {
+			$toreturn .= 'var clubIds = [' . $atts[1] . '];';
 		} else {
-			$toreturn .= 'var clubColors = [];';
+			/* Default to Orienteering Canada */
+			$toreturn .= 'var clubIds = [76];';
 		}
 
 		if ($numAtts >= 3) {
 			$toreturn .= 'var appendClubName = ' . $atts[2] . ';';
 		} else {
 			$toreturn .= 'var appendClubName = true;';
+		}
+
+		if ($numAtts >= 4) {
+			$toreturn .= 'var eventColoring = "' . $atts[3] . '";';
+		} else {
+			$toreturn .= 'var eventColoring = "eventType";';
 		}
 
 		$toreturn .= '</script>';
