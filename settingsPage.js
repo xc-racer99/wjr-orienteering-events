@@ -183,6 +183,24 @@ function createSettingsView() {
 			this.el.append('<div id="settingsPage"></div>');
 			var settingsDiv = jQuery("#settingsPage");
 
+			/* Add the event coloring selector */
+			var coloringOptions = [
+				["eventType", "Event Type"],
+				["eventSeries", "Event Series"]
+			];
+
+			var eventColoringString = '<h3>Event Coloring</h3>';
+			eventColoringString += '<select id="coloring-selector">';
+			for (var i = 0; i < coloringOptions.length; i++) {
+				if (eventColoring == coloringOptions[i][0])
+					eventColoringString += '<option value="' + coloringOptions[i][0] + '" selected="selected">' + coloringOptions[i][1] + '</option>';
+				else
+					eventColoringString += '<option value="' + coloringOptions[i][0] + '">' + coloringOptions[i][1] + '</option>';
+			}
+			eventColoringString += '</select>';
+
+			settingsDiv.append(eventColoringString);
+
 			/* Add the timezone selector */
 			var timeZones = [
 				["local","Your Local Time"],
@@ -217,6 +235,11 @@ function createSettingsView() {
 			jQuery('#timezone-selector').on('change', function() {
 				jQuery('#calendar').fullCalendar('option', 'timezone', this.value || false);
 				currentTimeZone = this.value;
+			});
+
+			jQuery('#coloring-selector').on('change', function() {
+				eventColoring = this.value;
+				jQuery('#calendar').fullCalendar( 'refetchEvents' );
 			});
 		},
 
