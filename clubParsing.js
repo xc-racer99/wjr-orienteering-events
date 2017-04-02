@@ -1,3 +1,5 @@
+var currentTimeZone = "local";
+
 function updateArray(clubId, checked) {
 	/* Make sure clubId is an integer */
 	clubId = parseInt(clubId);
@@ -177,18 +179,54 @@ function createSettingsView() {
 			jQuery(".fc-left").hide();
 			jQuery(".fc-center").hide();
 
-			this.el.append('<h3>Clubs</h3><div id="club-selector"></div>');
+			/* Create a div to store all the settings */
+			this.el.append('<div id="settingsPage"></div>');
+			var settingsDiv = jQuery("#settingsPage");
+
+			/* Add the timezone selector */
+			var timeZones = [
+				["local","Your Local Time"],
+				["America/Vancouver","Pacific Time"],
+				["America/Edmonton","Mountain Time"],
+				["America/Winnipeg","Central Time"],
+				["America/Toronto","Eastern Time"],
+				["America/Halifax","Atlantic Time"],
+				["America/St_Johns","Newfoundland Time"]
+			];
+
+			settingsDiv.append('<h3>Timezone</h3>');
+			var timeZoneString = '<select id="timezone-selector">';
+			for (var i = 0; i < timeZones.length; i++) {
+				if (currentTimeZone == timeZones[i][0])
+					timeZoneString += '<option value="' + timeZones[i][0] + '" selected="selected">' + timeZones[i][1] + '</option>';
+				else
+					timeZoneString += '<option value="' + timeZones[i][0] + '">' + timeZones[i][1] + '</option>';
+			}
+
+			timeZoneString += '</select>';
+
+			settingsDiv.append(timeZoneString);
+
+			/* Add the club selector */
+			settingsDiv.append('<h3>Clubs</h3><div id="club-selector"></div>');
+
+			/* Fetch our clubs */
 			fetchClubList();
+
+			/* TODO: Should this be elsewhere? */
+			jQuery('#timezone-selector').on('change', function() {
+				jQuery('#calendar').fullCalendar('option', 'timezone', this.value || false);
+				currentTimeZone = this.value;
+			});
 		},
 
 		unrenderSkeleton: function() {
 			// subclasses should implement
-			jQuery("#club-selector").remove();
+			jQuery("#settingsPage").remove();
 
 			/* Show title and arrows again */
 			jQuery(".fc-left").show();
 			jQuery(".fc-center").show();
-
 		},
 
 	});

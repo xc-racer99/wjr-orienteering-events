@@ -49,22 +49,6 @@ function wjr_events_shortcodes_init()
 
 		$toreturn .= '</script>';
 
-		// Add the timezone selector and the club selector divs
-		$toreturn .= "
-		<div id='tz-selector-container' style='text-align: right;'>
-			Timezone:
-			<select id='timezone-selector'>
-				<option value='local' selected='selected'>Your Local Time</option>
-				<option value='America/Vancouver'>Pacific Time</option>
-				<option value='America/Edmonton'>Mountain Time</option>
-				<option value='America/Winnipeg'>Central Time</option>
-				<option value='America/Toronto'>Eastern Time</option>
-				<option value='America/Halifax'>Atlantic Time</option>
-				<option value='America/St_Johns'>Newfoundland Time</option>
-			</select>
-		</div>
-		";
-
 		return $toreturn;
 
 	}

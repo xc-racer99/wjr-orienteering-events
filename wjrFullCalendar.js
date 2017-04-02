@@ -25,7 +25,7 @@ function convertTimestamps(events, timezone) {
 			wantedEvents[i].start = moment.tz(wantedEvents[i].start * 1000, timezone);
 			wantedEvents[i].end = moment.tz(wantedEvents[i].end * 1000, timezone);
 		}
-}
+	}
 
 	if (eventColoring == "eventType") {
 		for (var i = 0; i < wantedEvents.length; i++) {
@@ -61,7 +61,7 @@ jQuery('#calendar').fullCalendar({
 
 	defaultView: view,
 
-	timezone: document.getElementById('timezone-selector').value,
+	timezone: 'local',
 
 	eventSources: [
 		{
@@ -83,9 +83,4 @@ jQuery('#calendar').fullCalendar({
 		},
 	]
 });
-
-	// when the timezone selector changes, dynamically change the calendar option
-	jQuery('#timezone-selector').on('change', function() {
-		jQuery('#calendar').fullCalendar('option', 'timezone', this.value || false);
-	});
 });
