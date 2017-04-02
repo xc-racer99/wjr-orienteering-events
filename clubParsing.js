@@ -1,4 +1,7 @@
 function updateArray(clubId, checked) {
+	/* Make sure clubId is an integer */
+	clubId = parseInt(clubId);
+
 	if (checked) {
 		/* Add clubId to the array of ClubIds if necessary */
 		if (clubIds.indexOf(clubId) == -1)
@@ -25,10 +28,10 @@ function setChecked(ourClubNode, clubId) {
 			childNode.checked = checked;
 
 			/* Update the array */
-			updateArray(parseInt(childIds[i]), checked);
+			updateArray(childIds[i], checked);
 
 			/* Recurse into children */
-			setChecked(childNode, checked);
+			setChecked(childNode, childIds[i]);
 		}
 	}
 }
@@ -80,7 +83,7 @@ function setupInputs(allClubs, clubId, parentNode) {
 	checkbox.type = "checkbox";
 	checkbox.name = name;
 	checkbox.id = name;
-	checkbox.onchange = function() { setChecked(checkbox, parseInt(clubId)); jQuery('#calendar').fullCalendar( 'refetchEvents' ); };
+	checkbox.onchange = function() { setChecked(checkbox, clubId); jQuery('#calendar').fullCalendar( 'refetchEvents' ); };
 
 	/* Add an custom attribute containing the child club numbers so we can select/deselect a bunch at a time */
 	checkbox.setAttribute("data-childClubIds", childClubsList);
