@@ -41,6 +41,9 @@ function setInitialChecked() {
 		node.checked = true;
 		setChecked(node, clubIds[i]);
 	}
+
+	/* Update the events, as we have changed the array */
+	jQuery('#calendar').fullCalendar( 'refetchEvents' );
 }
 
 /* Sets up input boxes for all children starting from clubId */
@@ -152,7 +155,7 @@ function setupClubs(xml) {
 	}
 
 	/* Integration point - select the club to appear at the top.  OC is 76 */
-	setupInputs(allClubs, "76", clubSelector);
+	setupInputs(allClubs, topId, clubSelector);
 
 	/* Setup initial conditions */
 	setInitialChecked();
