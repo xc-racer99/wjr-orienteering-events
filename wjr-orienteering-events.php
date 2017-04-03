@@ -65,8 +65,7 @@ function wjr_events_enqueue_resources()
 		wp_register_script('wjr-fullcalendar-settings', plugins_url('settingsPage.js', __FILE__), null, true);
 
 		// FullCalendar Base
-		wp_register_script('fullcalendar-base', '//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.0/fullcalendar.min.js', array('moment', 'jquery'), true);
-		wp_enqueue_style('fullcalendar-style', '//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.0/fullcalendar.min.css');
-
+		wp_register_script('fullcalendar-base', '//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.1/fullcalendar.min.js', array('moment', 'jquery'), true);
+		wp_enqueue_style('fullcalendar-style', '//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.1/fullcalendar.min.css');
 }
 add_action('wp_enqueue_scripts', 'wjr_events_enqueue_resources');
