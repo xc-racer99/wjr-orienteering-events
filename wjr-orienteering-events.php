@@ -28,21 +28,22 @@ function wjr_events_shortcodes_init()
 			$toreturn .= 'var topId = 76;';
 		}
 
-		if ($numAtts >= 2) {
-			$toreturn .= 'var clubIds = [' . $atts[1] . '];';
+		if ($numAtts >= 2 && preg_match('/\d+((,\d+)+)?/', $atts[1])) {
+			preg_match('/\d+((,\d+)+)?/', $atts[1], $matches);
+			$toreturn .= 'var clubIds = [' . $matches[0] . '];';
 		} else {
 			/* Default to Orienteering Canada */
 			$toreturn .= 'var clubIds = [76];';
 		}
 
-		if ($numAtts >= 3) {
+		if ($numAtts >= 3 && is_bool($atts[2])) {
 			$toreturn .= 'var appendClubName = ' . $atts[2] . ';';
 		} else {
 			$toreturn .= 'var appendClubName = true;';
 		}
 
 		if ($numAtts >= 4) {
-			$toreturn .= 'var eventColoring = "' . $atts[3] . '";';
+			$toreturn .= 'var eventColoring = ' . json_encode($atts[3]) . ';';
 		} else {
 			$toreturn .= 'var eventColoring = "eventType";';
 		}
