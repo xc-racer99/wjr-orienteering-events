@@ -87,7 +87,6 @@ function setupInputs(allClubs, clubId, parentNode) {
 
 	/* Add an custom attribute containing the child club numbers so we can select/deselect a bunch at a time */
 	checkbox.setAttribute("data-childClubIds", childClubsList);
-	checkbox.setAttribute("data-parentClubId", clubNode.getElementsByTagName("ParentOrganisationId")[0].childNodes[0].nodeValue);
 
 	/* Append the input and label to the list item */
 	listItem.appendChild(checkbox);
