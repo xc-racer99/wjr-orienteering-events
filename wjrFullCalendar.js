@@ -39,11 +39,34 @@ function convertTimestamps(events, timezone) {
 	return wantedEvents;
 }
 
+function addChildrenToArray(allClubs, parentId) {
+	var children = determineChildren(allClubs, parentId);
+	for (var j = 0; j < children.length; j++) {
+		updateArray(children[j], true);
+		addChildrenToArray(allClubs, children[j]);
+	}
+}
+
 jQuery(document).ready(function() {
 	// page is now ready
 
 	/* Create and register our custom settings view */
 	createSettingsView();
+
+	/* Fetch clubs list and update as necessary */
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var allClubs = this.responseXML.getElementsByTagName("Organisation");
+			for (var i = 0; i < clubIds.length; i++) {
+				addChildrenToArray(allClubs, clubIds[i]);
+			}
+			/* Update the events */
+			jQuery('#calendar').fullCalendar( 'refetchEvents' );
+		}
+	};
+	xmlhttp.open("GET", "https://whyjustrun.ca/iof/3.0/organization_list.xml", true);
+	xmlhttp.send();
 
 	/* Default to month view when at least 783px wide, otherwise list view */
 	var view = 'month';

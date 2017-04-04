@@ -41,9 +41,6 @@ function setInitialChecked() {
 		node.checked = true;
 		setChecked(node, clubIds[i]);
 	}
-
-	/* Update the events, as we have changed the array */
-	jQuery('#calendar').fullCalendar( 'refetchEvents' );
 }
 
 /* Sets up input boxes for all children starting from clubId */
@@ -154,14 +151,13 @@ function setupClubs(xml) {
 		allClubs[j].appendChild(childClubIds);
 	}
 
-	/* Integration point - select the club to appear at the top.  OC is 76 */
 	setupInputs(allClubs, topId, clubSelector);
 
 	/* Setup initial conditions */
 	setInitialChecked();
 }
 function fetchClubList() {
-/* Fetch the club list from WJR */
+	/* Fetch the club list from WJR */
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
