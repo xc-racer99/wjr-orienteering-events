@@ -3,7 +3,7 @@
 Plugin Name: WhyJustRun Orienteering Events
 Description: Basic plugin to create a FullCalendar and using the shortcode [wjr-fullcalendar].  See README for full options
 Author: Jonathan Bakker
-Version: 1.1
+Version: 1.1.1
 */
 
 function wjr_events_shortcodes_init()
