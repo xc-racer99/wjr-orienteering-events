@@ -39,7 +39,6 @@ function setInitialChecked() {
 	for (var i = 0; i < clubIds.length; i++) {
 		var node = document.getElementById("label" + clubIds[i]);
 		node.checked = true;
-		setChecked(node, clubIds[i]);
 	}
 }
 
