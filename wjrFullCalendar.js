@@ -1,6 +1,30 @@
 /* List of colors to appear for the different event categories - International, National, Regional, Local, Club */
 var eventTypeColors = ["blue", "red", "orange", "yellow", "green"];
 
+function integerToColor(int) {
+	var str = int.toExponential();
+	var hash = 0;
+	for (var i = 0; i < str.length; i++) {
+		hash = str.charCodeAt(i) + ((hash << 5) - hash);
+	}
+	var colour = '#';
+	for (var i = 0; i < 3; i++) {
+		var value = (hash >> (i * 8)) & 0xFF;
+		colour += ('00' + value.toString(16)).substr(-2);
+	}
+	return colour;
+}
+
+function getContrastYIQ(hexTripletColor) {
+	var r, g, b;
+	r = parseInt(hexTripletColor.substr(1, 2), 16);
+	g = parseInt(hexTripletColor.substr(3, 2), 16);
+	b = parseInt(hexTripletColor.substr(5, 2), 16);
+
+	var yiq = ((r * 299) + (g * 587) + (b * 114))/1000;
+	return (yiq >= 128) ? 'black' : 'white';
+}
+
 function filterByClub(event) {
 	return clubIds.indexOf(event.club.id) != -1;
 }
@@ -33,6 +57,12 @@ function convertTimestamps(events, timezone) {
 			wantedEvents[i].textColor = 'black';
 			// Subtract 1 to convert between WJR's IDs and our array indexes
 			wantedEvents[i].color = eventTypeColors[wantedEvents[i].event_classification.id - 1];
+		}
+	} else if (eventColoring == "club") {
+		for (var i = 0; i < wantedEvents.length; i++) {
+			var color = integerToColor(wantedEvents[i].club.id);
+			wantedEvents[i].color = color;
+			wantedEvents[i].textColor = getContrastYIQ(color);
 		}
 	}
 

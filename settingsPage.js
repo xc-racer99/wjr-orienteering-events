@@ -133,8 +133,9 @@ function createSettingsView() {
 
 			/* Add the event coloring selector */
 			var coloringOptions = [
-				["eventType", "Event Type"],
-				["eventSeries", "Event Series"]
+				["club", "Club"],
+				["eventSeries", "Event Series"],
+				["eventType", "Event Type"]
 			];
 
 			var eventColoringString = '<h3>Event Coloring</h3>';
