@@ -39,11 +39,11 @@ function convertTimestamps(events, timezone) {
 	return wantedEvents;
 }
 
-function addChildrenToArray(allClubs, parentId) {
-	var children = determineChildren(allClubs, parentId);
+function addChildrenToArray(parentId) {
+	var children = determineChildren(parentId);
 	for (var j = 0; j < children.length; j++) {
 		updateArray(children[j], true);
-		addChildrenToArray(allClubs, children[j]);
+		addChildrenToArray(children[j]);
 	}
 }
 
@@ -57,9 +57,9 @@ jQuery(document).ready(function() {
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			var allClubs = this.responseXML.getElementsByTagName("Organisation");
+			allClubs = this.responseXML.getElementsByTagName("Organisation");
 			for (var i = 0; i < clubIds.length; i++) {
-				addChildrenToArray(allClubs, clubIds[i]);
+				addChildrenToArray(clubIds[i]);
 			}
 			/* Update the events */
 			jQuery('#calendar').fullCalendar( 'refetchEvents' );
