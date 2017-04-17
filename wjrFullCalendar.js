@@ -77,6 +77,15 @@ function addChildrenToArray(parentId) {
 	}
 }
 
+
+function getUrlVars() {
+	var vars = {};
+	var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+		vars[key] = value;
+	});
+	return vars;
+}
+
 jQuery(document).ready(function() {
 	// page is now ready
 
@@ -88,6 +97,20 @@ jQuery(document).ready(function() {
 	xmlhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			allClubs = this.responseXML.getElementsByTagName("Organisation");
+
+			/* Check if we passed a club=OABC parameter in the URL */
+			var clubParam = getUrlVars()["club"];
+
+			if (clubParam) {
+				/* Determine the clubID of from the ShortName */
+				for (var i = 0; i < allClubs.length; i++) {
+					if (allClubs[i].getElementsByTagName("ShortName")[0].childNodes[0].nodeValue == clubParam) {
+						clubIds = [parseInt(allClubs[i].getElementsByTagName("Id")[0].childNodes[0].nodeValue)];
+						break;
+					}
+				}
+			}
+
 			for (var i = 0; i < clubIds.length; i++) {
 				addChildrenToArray(clubIds[i]);
 			}
